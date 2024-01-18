@@ -23,7 +23,7 @@ export default function TeamsPage() {
         </div>
       </div>
       <Link
-        className="fade z-20 col-span-2 py-5 text-end text-xl transition-all hover:text-rose-600 hover:underline hover:underline-offset-2"
+        className="fade z-20 col-span-2 py-5 text-xl transition-all hover:text-rose-600 hover:underline hover:underline-offset-2"
         href="/"
       >
         ← Rearmar equipos
@@ -49,7 +49,7 @@ export default function TeamsPage() {
               {team2.players.map((player) => (
                 <li
                   key={player.id}
-                  className="  p-4 text-center  first-letter:uppercase  even:bg-zinc-900"
+                  className="bg-blackly/75 p-4  text-center backdrop-blur-xl  first-letter:uppercase  even:bg-zinc-900/75"
                 >
                   {player.name} {player.level}
                 </li>
