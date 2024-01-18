@@ -23,14 +23,14 @@ export default function TeamsPage() {
         </div>
       </div>
       <Link
-        className="fade py-5 text-xl transition-all hover:text-fuchsia-600 hover:underline md:col-span-2"
+        className="fade z-20 col-span-2 py-5 text-end text-xl transition-all hover:text-rose-600 hover:underline hover:underline-offset-2"
         href="/"
       >
         ← Rearmar equipos
       </Link>
       {teams.length > 0 ? (
         <>
-          <article className="fade w-full rounded-sm border-2 border-white">
+          <article className="fade z-30 w-full rounded-sm border-2 border-white">
             <h2 className="bg-zinc-900 p-4 text-center">Equipo 1 </h2>
             <ul>
               {team1.players.map((player) => (
@@ -43,7 +43,7 @@ export default function TeamsPage() {
               ))}
             </ul>
           </article>
-          <article className="fade w-full rounded-sm border-2 border-white">
+          <article className="fade z-30 w-full rounded-sm border-2 border-white">
             <h2 className="bg-zinc-900 p-4 text-center">Equipo 2 </h2>
             <ul className="">
               {team2.players.map((player) => (

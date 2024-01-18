@@ -16,7 +16,7 @@ export default function Home() {
         </div>
       </div>
       <Link
-        className="fade py-5 text-end text-xl transition-all hover:text-rose-600 hover:underline hover:underline-offset-2"
+        className="fade z-20 py-5 text-end text-xl transition-all hover:text-rose-600 hover:underline hover:underline-offset-2"
         href="/teams"
       >
         Ver equipos &#8594;

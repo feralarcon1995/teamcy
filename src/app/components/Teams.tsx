@@ -26,7 +26,7 @@ export default function Teams() {
   }, []);
 
   return (
-    <section className="bg-blackly/75 fade  flex h-full w-full flex-col justify-between gap-2 rounded-sm border-2 border-white p-2 backdrop-blur-xl  md:w-4/6 md:p-8">
+    <section className="bg-blackly/75 fade  z-20 flex h-full w-full flex-col justify-between gap-2 rounded-sm border-2 border-white p-2 backdrop-blur-xl md:w-4/6 md:p-8">
       <Table>
         <TableCaption>Furvo de los sabados</TableCaption>
         <TableHeader>
