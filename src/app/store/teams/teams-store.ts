@@ -13,6 +13,7 @@ interface Store {
 }
 const balanceTeams = (items: Player[]): Team[] => {
   const n = items.length;
+  const halfN = n / 2;
   let bestDiff = Infinity;
   let teams: Team[] = [];
 
@@ -34,7 +35,7 @@ const balanceTeams = (items: Player[]): Team[] => {
 
     const diff = Math.abs(sum1 - sum2);
 
-    if (diff < bestDiff) {
+    if (team1.length === halfN && team2.length === halfN && diff < bestDiff) {
       bestDiff = diff;
       teams = [
         {id: "team1", name: "Team 1", players: team1.slice()},

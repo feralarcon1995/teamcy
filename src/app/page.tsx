@@ -6,8 +6,8 @@ import Teams from "./components/Teams";
 
 export default function Home() {
   return (
-    <section className="relative mx-auto grid	 h-screen place-items-center gap-3 md:gap-8 ">
-      <div className="m-screen absolute flex w-full items-center justify-center">
+    <section className="relative mx-auto grid	 h-screen place-items-center gap-3 md:gap-8">
+      <div className="m-screen absolute flex w-full items-center justify-center ">
         <div className="triangle-left -top-4 -z-20">
           <div className="h-80 w-20 max-w-full rounded-full bg-rose-800 blur-2xl sm:w-80	" />
         </div>

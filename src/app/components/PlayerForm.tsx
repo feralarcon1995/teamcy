@@ -60,7 +60,7 @@ export default function PlayerForm() {
   return (
     <Form {...form}>
       <form
-        className="fade bg-blackly/75 z-20 mx-auto grid min-h-96 w-full grid-cols-1  gap-8 rounded-sm border-2 border-white p-8 backdrop-blur-xl md:w-4/6"
+        className="fade z-20 mx-auto grid min-h-96 w-full grid-cols-1 gap-8  rounded-sm border-2 border-white bg-blackly/75 p-8 backdrop-blur-xl md:w-4/6"
         onSubmit={form.handleSubmit(handleSubmit)}
       >
         <FormField
