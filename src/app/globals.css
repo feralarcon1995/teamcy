@@ -81,6 +81,14 @@
   animation: fade 1s linear 1 ;
 }
 
+.triangle-right {
+    animation: triangle-animation-right 10s infinite linear;
+}
+
+.triangle-left {
+    animation: triangle-animation-left 10s infinite linear;
+}
+
 @keyframes fade {
   0%{
     opacity:0;
@@ -88,5 +96,30 @@
 
   100%{
     opacity:1;
+  }
+}
+
+@keyframes triangle-animation-right {
+  0% { transform: translate(0, 0); }
+  33% { transform: translate(100px, 0); }
+  66% { transform: translate(50px, 100px); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes triangle-animation-left {
+  0% {
+    transform: translate(0, 0);
+  }
+
+  33% {
+    transform: translate(-200px, 0);
+  }
+
+  66% {
+    transform: translate(-50px, -200px);
+  }
+
+  100% {
+    transform: translate(0, 0);
   }
 }

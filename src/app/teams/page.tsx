@@ -13,9 +13,20 @@ export default function TeamsPage() {
   }, []);
 
   return (
-    <section className=" mx-auto grid h-full w-full grid-cols-1 gap-2 p-2 md:grid-cols-2  md:p-8 ">
-      <Link className="fade py-5 text-xl transition-all hover:underline md:col-span-2" href="/">
-        &#129044; Rearmar equipos
+    <section className=" relative mx-auto grid h-full w-full grid-cols-1 gap-2 p-2  md:grid-cols-2 md:p-8 ">
+      <div className="absolute flex h-dvh w-full items-center justify-center">
+        <div className="triangle-left -top-4 -z-20">
+          <div className="h-80 w-20 max-w-full rounded-full bg-rose-800 blur-2xl sm:w-80	" />
+        </div>
+        <div className="triangle-right top-4 -z-10 ">
+          <div className=" h-80 w-20 max-w-full rounded-full bg-fuchsia-900	blur-2xl sm:w-80	" />
+        </div>
+      </div>
+      <Link
+        className="fade py-5 text-xl transition-all hover:text-fuchsia-600 hover:underline md:col-span-2"
+        href="/"
+      >
+        ← Rearmar equipos
       </Link>
       {teams.length > 0 ? (
         <>

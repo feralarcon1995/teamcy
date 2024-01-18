@@ -1,6 +1,5 @@
 import type {Player, Team} from "../../interface/interface";
 
-import {redirect} from "next/navigation";
 import {create} from "zustand";
 import {persist} from "zustand/middleware";
 import {toast} from "sonner";
@@ -12,33 +11,39 @@ interface Store {
   removePlayer: (id: string) => void;
   balanceTeams: () => void;
 }
+const balanceTeams = (items: Player[]): Team[] => {
+  const n = items.length;
+  let bestDiff = Infinity;
+  let teams: Team[] = [];
 
-const balanceTeams = () => {
-  const {players, addPlayer} = useTeamStore.getState();
+  for (let i = 0; i < 1 << n; i++) {
+    const team1: Player[] = [];
+    const team2: Player[] = [];
+    let sum1 = 0;
+    let sum2 = 0;
 
-  const playersCopy = [...players];
+    for (let j = 0; j < n; j++) {
+      if ((i & (1 << j)) !== 0) {
+        team1.push(items[j]);
+        sum1 += items[j].level;
+      } else {
+        team2.push(items[j]);
+        sum2 += items[j].level;
+      }
+    }
 
-  playersCopy.sort((a, b) => a.level - b.level);
+    const diff = Math.abs(sum1 - sum2);
 
-  const team1 = [];
-  const team2 = [];
-
-  for (let i = 0; i < playersCopy.length; i++) {
-    if (i % 2 === 0) {
-      team1.push(playersCopy[i]);
-    } else {
-      team2.push(playersCopy[i]);
+    if (diff < bestDiff) {
+      bestDiff = diff;
+      teams = [
+        {id: "team1", name: "Team 1", players: team1.slice()},
+        {id: "team2", name: "Team 2", players: team2.slice()},
+      ];
     }
   }
 
-  const team1Object: Team = {id: "team1", name: "Team 1", players: team1};
-  const team2Object: Team = {id: "team2", name: "Team 2", players: team2};
-
-  useTeamStore.setState({players: [], teams: [team1Object, team2Object]});
-
-  team1.forEach((player) => addPlayer(player));
-  team2.forEach((player) => addPlayer(player));
-  redirect("/teams");
+  return teams;
 };
 
 export const useTeamStore = create<Store>()(
@@ -58,7 +63,7 @@ export const useTeamStore = create<Store>()(
 
           return {players: newPlayers};
         }),
-      balanceTeams: () => balanceTeams(),
+      balanceTeams: () => set((state) => ({teams: balanceTeams(state.players)})),
     }),
     {
       name: "team-storage",

@@ -1,6 +1,7 @@
 "use client";
 import {TrashIcon} from "lucide-react";
 import {useEffect} from "react";
+import {useRouter} from "next/navigation";
 
 import {
   Table,
@@ -16,6 +17,8 @@ import {Button} from "@/components/ui/button";
 import {useTeamStore} from "../store/teams/teams-store";
 
 export default function Teams() {
+  const router = useRouter();
+
   const {players, removePlayer, balanceTeams} = useTeamStore();
 
   useEffect(() => {
@@ -23,7 +26,7 @@ export default function Teams() {
   }, []);
 
   return (
-    <section className="fade flex h-full w-full flex-col justify-between gap-2 rounded-sm border-2 border-white p-2 md:max-w-[60%] md:p-8">
+    <section className="bg-blackly/75 fade  flex h-full w-full flex-col justify-between gap-2 rounded-sm border-2 border-white p-2 backdrop-blur-xl  md:w-4/6 md:p-8">
       <Table>
         <TableCaption>Furvo de los sabados</TableCaption>
         <TableHeader>
@@ -39,9 +42,9 @@ export default function Teams() {
               <TableRow key={player.id} className="fade">
                 <TableCell className="font-medium first-letter:uppercase ">{player.name}</TableCell>
                 <TableCell className="text-right">{player.level}</TableCell>
-                <TableCell className="flex items-center justify-items-center text-center">
+                <TableCell className="flex items-center justify-items-center text-right">
                   <TrashIcon
-                    className="hover:text-red cursor-pointer transition-all "
+                    className="cursor-pointer rounded-full p-1 transition-all hover:text-rose-600 hover:ring-1 hover:ring-rose-600 "
                     onClick={() => removePlayer(player.id)}
                   />
                 </TableCell>
@@ -58,7 +61,14 @@ export default function Teams() {
       </Table>
 
       {players.length >= 2 ? (
-        <Button className="w-full" type="button" onClick={() => balanceTeams()}>
+        <Button
+          className="w-full hover:bg-rose-800 hover:text-white"
+          type="button"
+          onClick={() => {
+            balanceTeams();
+            router.push("/teams");
+          }}
+        >
           Generar equipos
         </Button>
       ) : (
