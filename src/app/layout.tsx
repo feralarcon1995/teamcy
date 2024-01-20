@@ -3,6 +3,7 @@ import type {Metadata} from "next";
 import {Toaster} from "@/components/ui/sonner";
 
 import "./globals.css";
+import Footer from "./components/Footer";
 
 export const metadata: Metadata = {
   title: "Teamcy - generador de equipos",
@@ -19,9 +20,7 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
         <header className="fade text-center text-xl font-bold leading-[4rem]">Teamcy</header>
         <main className="py-8">{children}</main>
         <Toaster />
-        <footer className="text-center leading-[4rem] opacity-70">
-          © {new Date().getFullYear()} teamcy
-        </footer>
+        <Footer />
       </body>
     </html>
   );

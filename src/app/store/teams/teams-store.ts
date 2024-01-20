@@ -10,6 +10,7 @@ interface Store {
   addPlayer: (player: Player) => void;
   removePlayer: (id: string) => void;
   balanceTeams: () => void;
+  clearList: () => void;
 }
 const balanceTeams = (items: Player[]): Team[] => {
   const n = items.length;
@@ -64,6 +65,7 @@ export const useTeamStore = create<Store>()(
 
           return {players: newPlayers};
         }),
+      clearList: () => set({teams: [], players: []}),
       balanceTeams: () => set((state) => ({teams: balanceTeams(state.players)})),
     }),
     {

@@ -1,4 +1,6 @@
 "use client";
+import type {Team} from "../interface/interface";
+
 import {useEffect} from "react";
 import Link from "next/link";
 
@@ -12,18 +14,35 @@ export default function TeamsPage() {
     useTeamStore.persist.rehydrate();
   }, []);
 
+  let totalStarsTeam1 = 0;
+  let totalStarsTeam2 = 0;
+
+  if (teams && teams.length > 0) {
+    const sumStars = (team: Team) => {
+      return team.players.reduce((total, player) => total + player.level, 0);
+    };
+
+    if (team1.players && team1.players.length > 0) {
+      totalStarsTeam1 = sumStars(team1);
+    }
+
+    if (team2.players && team2.players.length > 0) {
+      totalStarsTeam2 = sumStars(team2);
+    }
+  }
+
   return (
-    <section className=" relative mx-auto grid h-full w-full grid-cols-1 gap-2  p-2 md:grid-cols-2 md:p-8">
+    <section className=" relative mx-auto grid max-h-full min-h-screen w-full grid-cols-1 place-content-start  justify-items-center gap-2 p-2 md:grid-cols-2 md:p-8">
       <div className="absolute flex h-dvh w-full items-center justify-center">
         <div className="triangle-left -top-4 -z-20">
-          <div className="h-80 w-20 max-w-full rounded-full bg-rose-800 blur-2xl sm:w-80	" />
+          <div className="h-80 w-80 max-w-full rounded-full bg-rose-800 blur-2xl" />
         </div>
         <div className="triangle-right top-4 -z-10 ">
-          <div className=" h-80 w-20 max-w-full rounded-full bg-fuchsia-900	blur-2xl sm:w-80	" />
+          <div className=" h-80 w-80 max-w-full rounded-full bg-fuchsia-900	blur-2xl" />
         </div>
       </div>
       <Link
-        className="fade z-20 py-5 text-xl transition-all hover:text-rose-600 hover:underline hover:underline-offset-2 md:col-span-2"
+        className="fade z-20 h-fit py-5 text-xl transition-all hover:text-rose-600 hover:underline hover:underline-offset-2 md:col-span-2"
         href="/"
       >
         ← Rearmar equipos
@@ -31,9 +50,13 @@ export default function TeamsPage() {
       {teams.length > 0 ? (
         <>
           <article className="fade z-30 w-full rounded-sm border-2 border-white">
-            <h2 className="flex items-center justify-between bg-zinc-900  p-4">
-              Equipo 1 <span>Jugadores: {team1.players.length}</span>
-            </h2>
+            <div className="flex items-center justify-between bg-zinc-900  p-4">
+              <h2>Equipo 1</h2>
+              <div className="flex items-center justify-between gap-4">
+                <span>Jugadores: {team1.players.length}</span> |{" "}
+                <span>★: {totalStarsTeam1 ? totalStarsTeam1 : 0}</span>
+              </div>
+            </div>
             <ul>
               {team1.players.map((player) => (
                 <li
@@ -46,9 +69,13 @@ export default function TeamsPage() {
             </ul>
           </article>
           <article className="fade z-30 w-full rounded-sm border-2 border-white">
-            <h2 className="flex items-center justify-between bg-zinc-900  p-4">
-              Equipo 2 <span>Jugadores: {team2.players.length}</span>
-            </h2>
+            <div className="flex items-center justify-between bg-zinc-900  p-4">
+              <h2>Equipo 2</h2>
+              <div className="flex items-center justify-between gap-4">
+                <span>Jugadores: {team2.players.length}</span> |{" "}
+                <span>★: {totalStarsTeam2 ? totalStarsTeam2 : 0}</span>
+              </div>
+            </div>
             <ul className="">
               {team2.players.map((player) => (
                 <li

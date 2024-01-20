@@ -17,21 +17,15 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import {Input} from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 
 import {useTeamStore} from "../store/teams/teams-store";
+
 const formSchema = z.object({
   name: z.string().min(3, {
     message: "El nombre debe tener al menos 3 letras.",
   }),
-  level: z.number({
-    required_error: "Por favor selecciona un nivel.",
+  level: z.number().min(1).max(10, {
+    message: "El nivel no puede ser mayor a 10.",
   }),
 });
 
@@ -60,19 +54,19 @@ export default function PlayerForm() {
   return (
     <Form {...form}>
       <form
-        className="fade z-20 mx-auto grid min-h-96 w-full grid-cols-1 gap-8  rounded-sm border-2 border-white bg-blackly/75 p-8 backdrop-blur-xl md:w-4/6"
+        className="fade z-20 mx-auto grid max-h-full min-h-36 w-full grid-cols-1 place-content-center items-center gap-8 rounded-sm  border-2 border-white bg-blackly/75 p-8 backdrop-blur-xl md:w-4/6 md:grid-cols-4"
         onSubmit={form.handleSubmit(handleSubmit)}
       >
         <FormField
           control={form.control}
           name="name"
           render={({field}) => (
-            <FormItem>
-              <FormLabel>Nombre jugador:</FormLabel>
+            <FormItem className="col-span-1 md:col-span-2">
+              <FormLabel>Nombre:</FormLabel>
               <FormControl>
                 <Input placeholder="Ingrese nombre del jugador" {...field} />
               </FormControl>
-              <FormDescription>Este es el nombre del jugador</FormDescription>
+              <FormDescription className="sr-only">Este es el nombre del jugador</FormDescription>
               <FormMessage className="text-red-500" />
             </FormItem>
           )}
@@ -82,28 +76,25 @@ export default function PlayerForm() {
           name="level"
           render={({field}) => (
             <FormItem>
-              <FormLabel>Nivel se jugador</FormLabel>
-              <Select onValueChange={(value) => field.onChange(Number(value))}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Selecciona el nivel del jugador" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  <SelectItem value="1">★</SelectItem>
-                  <SelectItem value="2">★★</SelectItem>
-                  <SelectItem value="3">★★★</SelectItem>
-                  <SelectItem value="4">★★★★</SelectItem>
-                  <SelectItem value="5">★★★★★</SelectItem>
-                </SelectContent>
-              </Select>
-              <FormDescription>Selecciona el nivel del jugador.</FormDescription>
+              <FormLabel>Nivel:</FormLabel>
+              <FormControl>
+                <Input
+                  {...field}
+                  placeholder="Ingrese nivel del jugador"
+                  type="number"
+                  onChange={(event) => {
+                    field.onChange(Number(event.target.value));
+                  }}
+                />
+              </FormControl>
+              <FormDescription className="sr-only">Coloque el nivel del jugador.</FormDescription>
               <FormMessage className="text-red-500" />
             </FormItem>
           )}
         />
-        <Button className="hover:bg-rose-800 hover:text-white" type="submit">
-          Agregar jugador
+
+        <Button className="self-end hover:bg-rose-800 hover:text-white" type="submit">
+          Agregar
         </Button>
       </form>
     </Form>
