@@ -24,9 +24,10 @@ const formSchema = z.object({
   name: z.string().min(3, {
     message: "El nombre debe tener al menos 3 letras.",
   }),
-  level: z.number().min(1).max(10, {
-    message: "El nivel no puede ser mayor a 10.",
-  }),
+  level: z
+    .number()
+    .min(1, {message: "El nivel no puede ser menor a 1."})
+    .max(10, {message: "El nivel no puede ser mayor a 10."}),
 });
 
 export default function PlayerForm() {
@@ -83,7 +84,9 @@ export default function PlayerForm() {
                   placeholder="Ingrese nivel del jugador"
                   type="number"
                   onChange={(event) => {
-                    field.onChange(Number(event.target.value));
+                    const value = event.target.value;
+
+                    field.onChange(value === "" ? "" : Number(value));
                   }}
                 />
               </FormControl>
